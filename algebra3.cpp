@@ -667,6 +667,19 @@ mat3& mat3::apply(V_FCT_PTR fct) {
     return *this;
 }
 
+float mat3::det(){
+  float ret = 0.0L;
+  for(int i = 0; i < 3; ++i){
+    float add = 1.0L, minus = 1.0L;
+    for(int j = 0; j < 3; ++j){
+      add *= v[j][(i + j + 3) % 3];
+      minus *= v[j][(i - j + 3) % 3];
+    }
+    ret += add - minus;
+  }
+  return ret;
+}
+
 
 // FRIENDS
 
@@ -879,7 +892,6 @@ void mat4::swap_cols( int i, int j )
     v[k][j] = t;
   }
 }
-
 
 // FRIENDS
 

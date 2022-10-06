@@ -1,14 +1,17 @@
 #include "algebra3.h"
+#include <vector>
 
 class ColorImage;
+class Object;
 
 class Camera{
 public:
     Camera();
+    // w, h, eye, plane[]
     Camera(int, int, vec3, vec3[]);
-    ~Camera();
+    ~Camera() = default;
 
-    ColorImage takeShot();
+    ColorImage takePicture(const std::vector<Object*>&);
 
 private:
     int w, h;

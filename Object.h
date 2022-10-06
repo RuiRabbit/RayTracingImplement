@@ -6,7 +6,7 @@ struct Intersection;
 class Object {
 public:
     Object() = default;
-    ~Object() = default;
+    virtual ~Object() = default;
 
     virtual Intersection intersect(Ray) const = 0;
 
@@ -32,6 +32,5 @@ public:
 
     virtual Intersection intersect(Ray) const override;
 private:
-    vec3 origin;
-    vec3 s1, s2;
+    vec3 p1, p2, p3;
 };
