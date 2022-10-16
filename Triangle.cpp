@@ -2,7 +2,8 @@
 #include "Ray.h"
 #include <algorithm>
 
-Triangle::Triangle(vec3 _p1, vec3 _p2, vec3 _p3) : p1(_p1), p2(_p2), p3(_p3){
+Triangle::Triangle(Material *_m, vec3 _p1, vec3 _p2, vec3 _p3)
+                    : Object(_m), p1(_p1), p2(_p2), p3(_p3){
     
 }
 
@@ -35,9 +36,7 @@ Intersection Triangle::intersect(Ray ray) const {
     
     Intersection ret;
     ret.t = t;
-    ret.opacity = 1.0L;
-    ret.color = ray.getOrigin() + ret.t * ray.getDir();
-    ret.color = ((ret.color + 1.0) / 2.0L * 255.999);
+    ret.obj = (Object*)this;
     return ret;
 
     // /* ------wrong(uninversable)------ */
@@ -60,4 +59,11 @@ Intersection Triangle::intersect(Ray ray) const {
     //     // printf("out of range: %f %f %f\n", x[0], x[1], x[2]);
     // }
     // return Ray::miss;
+}
+
+vec3 Triangle::getNormal(vec3 crossPoint, Ray in) const {
+    vec3 N = ((p2 - p1) ^ (p3 - p1)).normalize();
+    if(N * in.getDir() > 0.0)
+        N *= -1;
+    return N;
 }

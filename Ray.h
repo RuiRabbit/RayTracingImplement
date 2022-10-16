@@ -2,15 +2,18 @@
 #include <vector>
 
 class Object;
+class Light;
+class Material;
+
 struct Intersection {
     float t;
-    float opacity;
-    vec3 color;
+    Object *obj;
+
     bool operator < (const Intersection& rhs){
         return t < rhs.t;
     }
     bool operator == (const Intersection& rhs){
-        return (t == rhs.t && opacity == rhs.opacity && color == rhs.color);
+        return (t == rhs.t && obj == rhs.obj);
     }
     bool operator != (const Intersection& rhs){
         return !((*this) == rhs);
@@ -29,7 +32,7 @@ public:
     vec3 getOrigin();
     vec3 getDir();
 
-    vec3 trace(const std::vector<Object*>&);
+    vec3 trace(const std::vector<Object*>&, const std::vector<Light*>&, int depth = 0);
 
 private:
     vec3 origin, dir;

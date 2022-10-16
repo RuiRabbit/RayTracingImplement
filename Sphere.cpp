@@ -1,7 +1,9 @@
 #include "Object.h"
 #include "Ray.h"
+#include "Material.h"
 
-Sphere::Sphere(vec3 _origin, float _r) : Object(), origin(_origin), r(_r){
+Sphere::Sphere(Material *_m, vec3 _origin, float _r)
+                : Object(_m), origin(_origin), r(_r){
 
 }
 
@@ -22,9 +24,13 @@ Intersection Sphere::intersect(Ray ray) const {
         ret.t = (-b + sqrt(d)) / (2.0L * a);
     if(ret.t < 0)
         return Ray::miss;
-    ret.opacity = 1.0L;
-    ret.color = ray.getOrigin() + ret.t * dir;
-    ret.color = ((ret.color + 1.0) / 2.0L * 255.999);
+    ret.obj = (Object *)this;
+    // ret.color = ray.getOrigin() + ret.t * dir;
+    // ret.color = ((ret.color + 1.0) / 2.0L * 255.999);
     // printf("intersect with sphere\n");
     return ret;
+}
+
+vec3 Sphere::getNormal(vec3 crossPoint, Ray in) const {
+    return (crossPoint - origin).normalize();
 }

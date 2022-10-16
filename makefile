@@ -1,7 +1,7 @@
 CC = g++
 CPPFLAGS = -g -Wall
 
-SOURCE = main.cpp algebra3.cpp Camera.cpp PPM.cpp Ray.cpp Sphere.cpp Triangle.cpp
+SOURCE = main.cpp algebra3.cpp Camera.cpp PPM.cpp Ray.cpp Sphere.cpp Triangle.cpp Light.cpp Material.cpp
 OBJ = $(SOURCE:.cpp=.o)
 
 all: main
